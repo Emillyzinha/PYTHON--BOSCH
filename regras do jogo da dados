@@ -1,0 +1,13 @@
+Usuário insere créditos no jogo;
+Cada Jogada = R$ 2,00
+
+Jogo de Dados!
+- 1º Usuário escolhe 1 valor;
+- 2º Computador escolhe outro valor;
+- Dados são jogados;
+- Se o número sorteado for do usuário, ele ganha R$ 4,00 do PC;
+	O PC sugere o dobro ou nada
+		O usuário não precisa colocar mais nada
+		Caso o usuário ganhe a revanche, ganha R$ 8,00
+- Se o número sorteado for do PC, o PC ganha;
+- Se o número sorteado não tiver vencedor, dados são jogados novamente;

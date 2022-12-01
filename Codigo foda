@@ -1,0 +1,93 @@
+import pyautogui
+from selenium import webdriver
+from selenium.webdriver.chrome.options import Options
+from time import sleep
+import smtplib
+import sys
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QPushButton, QLabel, QLineEdit
+
+
+class Janela(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.setWindowTitle('B U S C A D O R   D E   I M A G E N S')
+        self.setFixedSize(500, 500)
+
+        self.texto_da_busca = QLabel('DIGITE UMA IMAGEM PARA BUSCAR:', self)
+        self.texto_da_busca.move(100, 260)
+        self.texto_da_busca.resize(280, 40)
+
+        self.caixa_texto_busca = QLineEdit(self)
+        self.caixa_texto_busca.move(100, 300)
+        self.caixa_texto_busca.resize(280, 40)
+
+        self.texto_do_email = QLabel('DIGITE UM EMAIL PARA RECEBER A IMAGEM ESCOLHIDA:', self)
+        self.texto_do_email.move(100, 335)
+        self.texto_do_email.resize(280, 40)
+
+        self.caixa_texto_email = QLineEdit(self)
+        self.caixa_texto_email.move(100, 370)
+        self.caixa_texto_email.resize(280, 40)
+
+        self.bt_iniciar = QPushButton('PESQUISAR', self)
+        self.bt_iniciar.move(140, 430)
+        self.bt_iniciar.resize(200, 40)
+        self.bt_iniciar.clicked.connect(self.chamar_codigo)
+
+        self.exibicao_imagem = QLabel(self)
+        self.exibicao_imagem.move(118, 20)
+        self.exibicao_imagem.resize(240, 240)
+
+    def chamar_codigo(self):
+        busca = self.caixa_texto_busca.text()
+        email = self.caixa_texto_email.text()
+        self.close()
+        run_codigo = Codigo()
+        run_codigo.pyauto(busca=busca, email=email)
+
+
+class Codigo:
+    def __init__(self):
+        self.opcoes_chrome = Options()
+        self.opcoes_chrome.add_experimental_option("detach", True)
+        self.driver = webdriver.Chrome(chrome_options=self.opcoes_chrome)
+
+    def pyauto(self, busca, email):
+        self.driver.get('https://images.google.com/')
+        self.driver.fullscreen_window()
+        sleep(2)
+        pyautogui.write(busca)
+        pyautogui.press('Enter')
+        self.driver.fullscreen_window()
+        self.scraping(busca=busca, email=email)
+
+    def scraping(self, busca, email):
+        elemento = self.driver.find_element('xpath', '//*[@id="islrg"]/div[1]/div[1]/a[1]/div[1]/img')
+        elemento.screenshot(f'{busca}.png')
+        self.driver.close()
+        self.setar_imagem_na_janela(busca=busca, email=email)
+
+    def setar_imagem_na_janela(self, busca, email):
+        j.show()
+        j.exibicao_imagem.setStyleSheet(f'border-image: url({busca}.png)')
+        self.enviar_email(email)
+
+    def enviar_email(self, email):
+        pass
+
+
+stylesheet = """
+    Janela {
+        background-image: url("background.png");
+        background-repeat: no-repeat; 
+        background-position: center;
+        background-color: white
+        }
+    """
+
+if __name__ == '__main__':
+    aplicacao = QApplication(sys.argv)
+    aplicacao.setStyleSheet(stylesheet)
+    j = Janela()
+    j.show()
+    sys.exit(aplicacao.exec())

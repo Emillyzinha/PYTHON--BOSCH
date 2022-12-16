@@ -1,7 +1,5 @@
 import random
 import sys
-import time
-from PyQt5.QtCore import QTime
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QToolTip, QLabel
 from PyQt5.QtCore import QTimer
@@ -13,6 +11,7 @@ class Janela(QMainWindow):
 
         self.pontos_computador = 0
         self.pontos_jogador = 0
+        self.opcao_jogador = 0
         self.contador = 0
         self.topo = 200
         self.esquerda = 530
@@ -28,13 +27,8 @@ class Janela(QMainWindow):
 
         self.pontuacao = QLabel(self)
         self.pontuacao.move(600, 20)
-        self.pontuacao.setStyleSheet('QLabel {font: bold; font-size: 30px; color: #000000}')
-        self.pontuacao.resize(300, 60)
-
-        # self.pontuacao_computador = QLabel(self)
-        # self.pontuacao_computador.move(700, 20)
-        # self.pontuacao_computador.setStyleSheet('QLabel {font: bold; font-size: 40px; color: #000000}')
-        # self.pontuacao_computador.resize(300, 60)
+        self.pontuacao.setStyleSheet('QLabel {font: bold; font-size: 20px; color: #000000}')
+        self.pontuacao.resize(400, 100)
 
         self.vencedor = QLabel(self)
         self.vencedor.move(10, 20)
@@ -79,11 +73,11 @@ class Janela(QMainWindow):
         inic.resize(210, 50)
         inic.clicked.connect(self.iniciar)
 
-        botaoPedra = QPushButton('Pedra', self)
-        botaoPedra.move(50, 610)
-        botaoPedra.resize(210, 50)
-        botaoPedra.setStyleSheet('QPushButton {font:bold; font-size: 20px}')
-        botaoPedra.clicked.connect(self.jogador_pedra)
+        self.botaoPedra = QPushButton('Pedra', self)
+        self.botaoPedra.move(50, 610)
+        self.botaoPedra.resize(210, 50)
+        self.botaoPedra.setStyleSheet('QPushButton {font:bold; font-size: 20px}')
+        self.botaoPedra.clicked.connect(self.jogador_pedra)
 
         self.imagem_papel = QLabel(self)
         self.imagem_papel.move(385, 400)  # vai p baixo quanto maior é
@@ -91,11 +85,11 @@ class Janela(QMainWindow):
         self.imagem_papel.setPixmap(QtGui.QPixmap('img/papel.jpg'))
         self.imagem_papel.setScaledContents(True)
 
-        botaoPapel = QPushButton('Papel', self)
-        botaoPapel.move(350, 610)
-        botaoPapel.resize(210, 50)
-        botaoPapel.setStyleSheet('QPushButton {font:bold; font-size: 20px}')
-        botaoPapel.clicked.connect(self.jogador_papel)
+        self.botaoPapel = QPushButton('Papel', self)
+        self.botaoPapel.move(350, 610)
+        self.botaoPapel.resize(210, 50)
+        self.botaoPapel.setStyleSheet('QPushButton {font:bold; font-size: 20px}')
+        self.botaoPapel.clicked.connect(self.jogador_papel)
 
         self.imagem_tesoura = QLabel(self)
         self.imagem_tesoura.move(685, 400)
@@ -103,11 +97,11 @@ class Janela(QMainWindow):
         self.imagem_tesoura.setPixmap(QtGui.QPixmap('img/tesoura.jpg'))
         self.imagem_tesoura.setScaledContents(True)
 
-        botaoTesoura = QPushButton('Tesoura', self)
-        botaoTesoura.move(650, 610)
-        botaoTesoura.resize(210, 50)
-        botaoTesoura.setStyleSheet('QPushButton {font:bold; font-size: 20px}')
-        botaoTesoura.clicked.connect(self.jogador_tesoura)
+        self.botaoTesoura = QPushButton('Tesoura', self)
+        self.botaoTesoura.move(650, 610)
+        self.botaoTesoura.resize(210, 50)
+        self.botaoTesoura.setStyleSheet('QPushButton {font:bold; font-size: 20px}')
+        self.botaoTesoura.clicked.connect(self.jogador_tesoura)
 
         self.timer = QTimer()
         self.timer.timeout.connect(self.computador)
@@ -128,6 +122,10 @@ class Janela(QMainWindow):
 
     def iniciar(self):
         if self.timer.isActive() == False:
+            self.contador = 0
+            self.botaoPedra.setEnabled(True)
+            self.botaoPapel.setEnabled(True)
+            self.botaoTesoura.setEnabled(True)
             self.timer.start(1000)
 
     def computador(self):
@@ -139,35 +137,47 @@ class Janela(QMainWindow):
         elif self.opcao_computador == 3:
             self.imagem_computador.setPixmap(QtGui.QPixmap('img/tesoura.jpg'))
 
-        if self.opcao_jogador == self.opcao_computador:
-            self.pontuacao.setText("Empate")
-        elif self.opcao_computador == 1 and self.opcao_jogador == 2 or \
-                self.opcao_computador == 2 and self.opcao_jogador == 3 or \
-                self.opcao_computador == 3 or self.opcao_jogador == 1:
-                self.pontos_jogador +=1
-                self.opcao_jogador = 0
-                print("Computador: ", self.pontos_computador)
-        elif self.opcao_computador == 2 and self.opcao_jogador == 1 or \
-                self.opcao_computador == 3 and self.opcao_jogador == 2 or \
-                self.opcao_computador == 1 or self.opcao_jogador == 3:
-                self.pontos_computador += 1
-                self.opcao_jogador = 0
-                print("Computador: ", self.pontos_computador)
-        elif self.opcao_jogador == 0:
+        if self.opcao_jogador == 0:
             self.pontos_computador += 1
-        print("Jogador: ", self.opcao_jogador)
+        elif self.opcao_jogador == self.opcao_computador:
+            self.pontuacao.setText("Empate")
+        elif self.opcao_computador == 1 and self.opcao_jogador == 2:
+            self.pontos_jogador += 1
+            # print("Computador: ", self.pontos_computador)
+        elif self.opcao_computador == 2 and self.opcao_jogador == 3:
+            self.pontos_jogador += 1
+            # print("Computador: ", self.pontos_computador)
+        elif self.opcao_computador == 3 or self.opcao_jogador == 1:
+            self.pontos_jogador +=1
+            # print("Computador: ", self.pontos_computador)
+
+        elif self.opcao_computador == 2 and self.opcao_jogador == 1:
+            self.pontos_computador += 1
+            # print("Computador: ", self.pontos_computador)
+        elif self.opcao_computador == 3 and self.opcao_jogador == 2:
+            self.pontos_computador += 1
+            # print("Computador: ", self.pontos_computador)
+        elif self.opcao_computador == 1 or self.opcao_jogador == 3:
+                self.pontos_computador += 1
+                # print("Computador: ", self.pontos_computador)
         self.pontuacao.setText(f"V: {self.pontos_jogador}           C: {self.pontos_computador}")
+        self.contador += 1
 
         if self.contador >= 10:
             self.timer.stop()
+            self.botaoPedra.setEnabled(False)
+            self.botaoPapel.setEnabled(False)
+            self.botaoTesoura.setEnabled(False)
             if self.pontos_jogador > self.pontos_computador:
-                self.pontuacao.setText("O jogador venceu com {} pontos!".format(self.pontos_jogador))
+                self.pontuacao.setText("Jogador venceu com {} pontos".format(self.pontos_jogador))
             elif self.pontos_jogador == self.pontos_computador:
                 self.pontuacao.setText("Empate de {} pontos.".format(self.pontos_jogador))
             else:
-                self.pontuacao.setText("O computador venceu com {} pontos!".format(self.pontos_computador))
-        self.contador += 1
-        print(self.contador)
+                self.pontuacao.setText("Computador venceu com {} pontos".format(self.pontos_computador))
+        # print(self.contador)
+        # print(f"OpçãoC: {self.opcao_computador}")
+        # print(f"OpçãoJ: {self.opcao_jogador}")
+        self.opcao_jogador = 0
 
     def CarregandoJanela(self):
         self.setGeometry(self.esquerda, self.topo, self.largura, self.altura)

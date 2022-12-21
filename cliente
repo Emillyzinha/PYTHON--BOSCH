@@ -1,0 +1,17 @@
+
+class Cliente:
+
+    # ao começar um sistema o ideal é SEMPRE começar com o mínimo necessário
+    def __init__(self, nome):
+        self.__nome = nome
+
+    @property
+    def nome(self):
+        print('chamando o @property nome()')
+        return self.__nome.title()
+
+    # nome do aributo e setter
+    @nome.setter
+    def nome(self, nome):
+        print('chamando o @setter nome()')
+        self.__nome = nome

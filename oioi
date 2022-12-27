@@ -1,33 +1,13 @@
 # criar aplicação que tivesse controle de playlist de programa de TV (filmes, séries)
 # MODELO = nome que dá pare quando está criando um conceito de classes que vão rpresentar um domínio no sistema
+# reduziu a quantidade de código repetitivo. não tem mais a maioria do poto de falha
 
-class Filme:
-    def __init__(self, nome, ano, duracao):
-        self.__nome = nome.title()
-        # capitalize = para parágrafo, deixar a primeira letra maiúscula
-        self.ano = ano
-        self.duracao = duracao
-        self.__likes = 0
+#   HERANÇA
 
-    # método = criado para informações que vão mudar também
-
-    @property
-    def likes(self):
-        return self.__likes
-
-    def dar_like(self):
-        self.__likes += 1
-
-    @property
-    def nome(self):
-        return self.__nome
-
-
-class Serie:
-    def __init__(self, nome, ano, temporadas):
+class Programa:
+    def __init__(self, nome, ano):
         self.__nome = nome.title()
         self.ano = ano
-        self.temporadas = temporadas
         self.__likes = 0
 
     @property
@@ -43,13 +23,45 @@ class Serie:
 
     @nome.setter
     def nome(self, novo_nome):
-        
+        self.__nome = novo_nome
+
+# classmethod = método da classe. você consegue acessar os atributos através de um método
+# usar MÉTODOS ESTÁTICOS para trabalhar em conjunto com a classe sem atributos presentes na classe
+
+
+class Filme(Programa):
+    # SUPER + ATRIBUTO = subscrevendo o método init para usar o init(super) da classe mãe para adicionar um atributo
+    def __init__(self, nome, ano, duracao):
+        # está chamando a classe mãe e o inicializador dela, como não está declarando não precisa chamar o self
+        super().__init__(nome, ano)
+        self.duracao = duracao
+
+    def retorna_cadastro_diferenciado(self):
+        pass
+
+
+class Serie(Programa):
+    def __init__(self, nome, ano, temporadas):
+        super().__init__(nome, ano)
+        self.temporadas = temporadas
+
 
 vingadores = Filme('vingadores - guerra infinita', 2018, 160)
 vingadores.dar_like()
-print(f'Nome: {vingadores.nome} - Ano: {vingadores.ano} - Duração: {vingadores.ano} - Likes: {vingadores.likes}')
+print(f'{vingadores.nome} - {vingadores.duracao}: {vingadores.likes}')
 
 atlanta = Serie('atlanta', 2018, 2)
 atlanta.dar_like()
 atlanta.dar_like()
-print(f'Nome: {atlanta.nome} - Ano: {atlanta.ano} - Temporada(s): {atlanta.temporadas} - Likes: {atlanta.likes}')
+print(f'{atlanta.nome} - {atlanta.temporadas}: {atlanta.likes}')
+
+filmes_e_series = [vingadores, atlanta]
+# filme e série são do tipo programa. As classes filho são do tipo classe mãe
+
+print("\n")
+
+# POLIMORFISMO = são do mesmo tipo e funcionalidade.
+for programa in filmes_e_series:
+    detalhes = programa.duracao if hasattr(programa, 'duracao') else programa.temporadas
+    # HASATTR = para saber se existe um atributo dentro da classe
+    print(f'{programa.nome} - {detalhes} D - {programa.likes}')

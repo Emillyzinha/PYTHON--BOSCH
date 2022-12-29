@@ -6,6 +6,7 @@
 
 class Programa:
     def __init__(self, nome, ano):
+        # usar SÓ UM underline por convenção, para ficar mais fácil de usar o atributo em outra classe, não tem naa prendendo a variável mas os programadores vão saber que não é para ser usado o atributo
         self.__nome = nome.title()
         self.ano = ano
         self.__likes = 0
@@ -63,5 +64,6 @@ print("\n")
 # POLIMORFISMO = são do mesmo tipo e funcionalidade.
 for programa in filmes_e_series:
     detalhes = programa.duracao if hasattr(programa, 'duracao') else programa.temporadas
+    # IF TERNÁRIO = começa com valor que quer exibir, SE tiver tal coisa, SENÃO faz tal coisa
     # HASATTR = para saber se existe um atributo dentro da classe
     print(f'{programa.nome} - {detalhes} D - {programa.likes}')

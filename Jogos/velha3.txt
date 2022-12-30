@@ -1,0 +1,129 @@
+def jogadas(self, vez):
+        if self.jogada == 'jogador1':
+            match vez:
+                case 1:
+                    self.btn1 = 'Jogador1'
+                    self.botao1.setStyleSheet('border-image: url(circulo.png)')
+                    self.botao1.setEnabled(False)
+                    self.jogada = 'jogador2'
+
+                case 2:
+                    self.btn2 = 'Jogador1'
+                    self.botao2.setStyleSheet('border-image: url(circulo.png)')
+                    self.botao2.setEnabled(False)
+                    self.jogada = 'jogador2'
+
+                case 3:
+                    self.btn3 = 'Jogador1'
+                    self.botao3.setStyleSheet('border-image: url(circulo.png)')
+                    self.botao3.setEnabled(False)
+                    self.jogada = 'jogador2'
+
+                case 4:
+                    self.btn4 = 'Jogador1'
+                    self.botao4.setStyleSheet('border-image: url(circulo.png)')
+                    self.botao4.setEnabled(False)
+                    self.jogada = 'jogador2'
+
+                case 5:
+                    self.btn5 = 'Jogador1'
+                    self.botao5.setStyleSheet('border-image: url(circulo.png)')
+                    self.botao5.setEnabled(False)
+                    self.jogada = 'jogador2'
+
+                case 6:
+                    self.btn6 = 'Jogador1'
+                    self.botao6.setStyleSheet('border-image: url(circulo.png)')
+                    self.botao6.setEnabled(False)
+                    self.jogada = 'jogador2'
+
+                case 7:
+                    self.btn7 = 'Jogador1'
+                    self.botao7.setStyleSheet('border-image: url(circulo.png)')
+                    self.botao7.setEnabled(False)
+                    self.jogada = 'jogador2'
+
+                case 8:
+                    self.btn8 = 'Jogador1'
+                    self.botao8.setStyleSheet('border-image: url(circulo.png)')
+                    self.botao8.setEnabled(False)
+                    self.jogada = 'jogador2'
+
+                case 9:
+                    self.btn9 = 'Jogador1'
+                    self.botao9.setStyleSheet('border-image: url(circulo.png)')
+                    self.botao9.setEnabled(False)
+                    self.jogada = 'jogador2'
+            self.verificar_vitoria()
+
+        elif self.jogada == 'jogador2':
+            match vez:
+                case 1:
+                    self.btn1 = 'Jogador2'
+                    self.botao1.setStyleSheet('border-image: url(x.png)')
+                    self.botao1.setEnabled(False)
+                    self.jogada = 'jogador1'
+
+                case 2:
+                    self.btn2 = 'Jogador2'
+                    self.botao2.setStyleSheet('border-image: url(x.png)')
+                    self.botao2.setEnabled(False)
+                    self.jogada = 'jogador1'
+
+                case 3:
+                    self.btn3 = 'Jogador2'
+                    self.botao3.setStyleSheet('border-image: url(x.png)')
+                    self.botao3.setEnabled(False)
+                    self.jogada = 'jogador1'
+
+                case 4:
+                    self.btn4 = 'Jogador2'
+                    self.botao4.setStyleSheet('border-image: url(x.png)')
+                    self.botao4.setEnabled(False)
+                    self.jogada = 'jogador1'
+
+                case 5:
+                    self.btn5 = 'Jogador2'
+                    self.botao5.setStyleSheet('border-image: url(x.png)')
+                    self.botao5.setEnabled(False)
+                    self.jogada = 'jogador1'
+
+                case 6:
+                    self.btn6 = 'Jogador2'
+                    self.botao6.setStyleSheet('border-image: url(x.png)')
+                    self.botao6.setEnabled(False)
+                    self.jogada = 'jogador1'
+
+                case 7:
+                    self.btn7 = 'Jogador2'
+                    self.botao7.setStyleSheet('border-image: url(x.png)')
+                    self.botao7.setEnabled(False)
+                    self.jogada = 'jogador1'
+
+                case 8:
+                    self.btn8 = 'Jogador2'
+                    self.botao8.setStyleSheet('border-image: url(x.png)')
+                    self.botao8.setEnabled(False)
+                    self.jogada = 'jogador1'
+
+                case 9:
+                    self.btn9 = 'Jogador2'
+                    self.botao9.setStyleSheet('border-image: url(x.png)')
+                    self.botao9.setEnabled(False)
+                    self.jogada = 'jogador1'
+            self.verificar_vitoria()
+
+stylesheet = """
+        Janela {
+            background-image: url('imagem1.png');
+            background-repeat: no-repeat;
+            background-position: center;
+            background-color: white;
+        }
+"""
+
+if __name__ == '__main__':
+    aplicacao = QApplication(sys.argv)
+    j = Janela()
+    aplicacao.setStyleSheet(stylesheet)
+    sys.exit(aplicacao.exec())

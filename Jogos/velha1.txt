@@ -1,0 +1,132 @@
+import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel
+
+class Janela(QMainWindow): #Herança
+    def __init__(self):
+        super().__init__()
+        self.topo = 100
+        self.esquerda = 100
+        self.largura = 500
+        self.altura = 600
+
+        self.jogada = 'jogador1'
+        self.btn1 = ''
+        self.btn2 = ''
+        self.btn3 = ''
+        self.btn4 = ''
+        self.btn5 = ''
+        self.btn6 = ''
+        self.btn7 = ''
+        self.btn8 = ''
+        self.btn9 = ''
+        self.p_jog_1 = 0
+        self.p_jog_2 = 0
+
+        self.botao1 = QPushButton(self)
+        self.botao1.move(30, 100)
+        self.botao1.resize(120, 120)
+        self.botao1.setFlat(True) # para o botão ficar visível
+        self.botao1.clicked.connect(lambda: self.jogadas(1))
+
+        self.botao2 = QPushButton(self)
+        self.botao2.move(30, 248)
+        self.botao2.resize(120, 120)
+        self.botao2.setFlat(True)
+        self.botao2.clicked.connect(lambda: self.jogadas(2)) # LAMBDA = para passar o parâmetro para a função de acordo com os cases
+
+        self.botao3 = QPushButton(self)
+        self.botao3.move(30, 395)
+        self.botao3.resize(120, 120)
+        self.botao3.setFlat(True)
+        self.botao3.clicked.connect(lambda: self.jogadas(3))
+
+        self.botao4 = QPushButton(self)
+        self.botao4.move(185, 100)
+        self.botao4.resize(120, 120)
+        self.botao4.setFlat(True)
+        self.botao4.clicked.connect(lambda: self.jogadas(4))
+
+        self.botao5 = QPushButton(self)
+        self.botao5.move(185, 248)
+        self.botao5.resize(120, 120)
+        self.botao5.setFlat(True)
+        self.botao5.clicked.connect(lambda: self.jogadas(5))
+
+        self.botao6 = QPushButton(self)
+        self.botao6.move(185, 395)
+        self.botao6.resize(120, 120)
+        self.botao6.setFlat(True)
+        self.botao6.clicked.connect(lambda: self.jogadas(6))
+
+        self.botao7 = QPushButton(self)
+        self.botao7.move(348, 100)
+        self.botao7.resize(120, 120)
+        self.botao7.setFlat(True)
+        self.botao7.clicked.connect(lambda: self.jogadas(7))
+
+        self.botao8 = QPushButton(self)
+        self.botao8.move(348, 245)
+        self.botao8.resize(120, 120)
+        self.botao8.setFlat(True)
+        self.botao8.clicked.connect(lambda: self.jogadas(8))
+
+        self.botao9 = QPushButton(self)
+        self.botao9.move(348, 395)
+        self.botao9.resize(120, 120)
+        self.botao9.setFlat(True)
+        self.botao9.clicked.connect(lambda: self.jogadas(9))
+
+        self.vencedor = QLabel(self)
+        self.vencedor.move(140, 530)
+        self.vencedor.setStyleSheet('QLabel {font: bold; font-size: 20px; color: #000000}')
+        self.vencedor.resize(300, 60)
+
+        self.ponto_1 = QLabel(self)
+        self.ponto_1.move(350, 10)
+        self.ponto_1.setStyleSheet('QLabel {font: bold; font-size: 20px; color: #000000}')
+        self.ponto_1.resize(300, 60)
+
+        self.ponto_2 = QLabel(self)
+        self.ponto_2.move(420, 10)
+        self.ponto_2.setStyleSheet('QLabel {font: bold; font-size: 20px; color: #000000}')
+        self.ponto_2.resize(300, 60)
+
+        self.novamente = QPushButton('Aperte para outro jogo', self)
+        self.novamente.move(40, 15)
+        self.novamente.resize(200, 40)
+        self.novamente.clicked.connect(self.nov)
+
+        self.carregar_janela()
+
+    def nov(self):
+        if self.jogada == 'jogador1':
+            self.jogada = 'jogador1'
+        elif self.jogada == 'jogador2':
+            self.jogada = 'jogador2'
+
+        self.botao1.setStyleSheet('')
+        self.botao2.setStyleSheet('')
+        self.botao3.setStyleSheet('')
+        self.botao4.setStyleSheet('')
+        self.botao5.setStyleSheet('')
+        self.botao6.setStyleSheet('')
+        self.botao7.setStyleSheet('')
+        self.botao8.setStyleSheet('')
+        self.botao9.setStyleSheet('')
+        self.vencedor.setText('')
+
+        self.btn1 = ''
+        self.btn2 = ''
+        self.btn3 = ''
+        self.btn4 = ''
+        self.btn5 = ''
+        self.btn6 = ''
+        self.btn7 = ''
+        self.btn8 = ''
+        self.btn9 = ''
+
+        self.desabilita(True)
+
+    def carregar_janela(self):
+        self.setGeometry(self.esquerda, self.topo, self.largura, self.altura)
+        self.show()

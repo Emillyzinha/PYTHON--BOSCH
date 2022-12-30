@@ -1,0 +1,24 @@
+from PyQt5.QtWidgets import QApplication, QMainWindow
+
+
+class Principal(QMainWindow):
+    def __init__(self):
+        super(self).__init__()
+
+        self.esquerda = 530
+        self.largura = 920
+        self.altura = 700
+        self.titulo = "Tela principal"
+
+        self.CarregandoJanela()
+
+    def CarregandoJanela(self):
+        self.setGeometry(self.esquerda, self.topo, self.largura, self.altura)
+        self.setWindowTitle(self.titulo)
+        self.show()
+
+
+if __name__ == '__main__':
+    aplicacao = QApplication(sys.argv)
+    j = Principal()
+    sys.exit(aplicacao.exec_())

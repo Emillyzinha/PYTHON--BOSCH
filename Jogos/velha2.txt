@@ -1,0 +1,82 @@
+ def verificar_vitoria(self):
+        if self.btn1 == 'Jogador1' and self.btn5 == 'Jogador1' and self.btn9 == 'Jogador1':
+            self.vencedor.setText("Jogador 1 venceu!")
+            self.desabilita(False)
+            self.p_jog_1 +=1
+        elif self.btn7 == 'Jogador1' and self.btn5 == 'Jogador1' and self.btn3 == 'Jogador1':
+            self.vencedor.setText("Jogador 1 venceu!")
+            self.desabilita(False)
+            self.p_jog_1 +=1
+        elif self.btn1 == 'Jogador1' and self.btn2 == 'Jogador1' and self.btn3 == 'Jogador1':
+            self.vencedor.setText("Jogador 1 venceu!")
+            self.desabilita(False)
+            self.p_jog_1 +=1
+        elif self.btn4 == 'Jogador1' and self.btn5 == 'Jogador1' and self.btn6 == 'Jogador1':
+            self.vencedor.setText("Jogador 1 venceu!")
+            self.desabilita(False)
+            self.p_jog_1 +=1
+        elif self.btn7 == 'Jogador1' and self.btn8 == 'Jogador1' and self.btn9 == 'Jogador1':
+            self.vencedor.setText("Jogador 1 venceu!")
+            self.desabilita(False)
+            self.p_jog_1 +=1
+        elif self.btn1 == 'Jogador1' and self.btn4 == 'Jogador1' and self.btn7 == 'Jogador1':
+            self.vencedor.setText("Jogador 1 venceu!")
+            self.desabilita(False)
+            self.p_jog_1 +=1
+        elif self.btn2 == 'Jogador1' and self.btn5 == 'Jogador1' and self.btn8 == 'Jogador1':
+            self.vencedor.setText("Jogador 1 venceu!")
+            self.desabilita(False)
+            self.p_jog_1 +=1
+        elif self.btn3 == 'Jogador1' and self.btn6 == 'Jogador1' and self.btn9 == 'Jogador1':
+            self.vencedor.setText("Jogador 1 venceu!")
+            self.desabilita(False)
+            self.p_jog_1 +=1
+
+        elif self.btn1 == 'Jogador2' and self.btn5 == 'Jogador2' and self.btn9 == 'Jogador2':
+            self.vencedor.setText("Jogador 2 venceu!")
+            self.desabilita(False)
+            self.p_jog_2 +=1
+        elif self.btn7 == 'Jogador2' and self.btn5 == 'Jogador2' and self.btn3 == 'Jogador2':
+            self.vencedor.setText("Jogador 2 venceu!")
+            self.desabilita(False)
+            self.p_jog_2 +=1
+        elif self.btn1 == 'Jogador2' and self.btn2 == 'Jogador2' and self.btn3 == 'Jogador2':
+            self.vencedor.setText("Jogador 2 venceu!")
+            self.desabilita(False)
+            self.p_jog_2 += 1
+        elif self.btn4 == 'Jogador2' and self.btn5 == 'Jogador2' and self.btn6 == 'Jogador2':
+            self.vencedor.setText("Jogador 2 venceu!")
+            self.desabilita(False)
+            self.p_jog_2 += 1
+        elif self.btn7 == 'Jogador2' and self.btn8 == 'Jogador2' and self.btn9 == 'Jogador2':
+            self.vencedor.setText("Jogador 2 venceu!")
+            self.desabilita(False)
+            self.p_jog_2 += 1
+        elif self.btn1 == 'Jogador2' and self.btn4 == 'Jogador2' and self.btn7 == 'Jogador2':
+            self.vencedor.setText("Jogador 2 venceu!")
+            self.desabilita(False)
+            self.p_jog_2 += 1
+        elif self.btn2 == 'Jogador2' and self.btn5 == 'Jogador2' and self.btn8 == 'Jogador2':
+            self.vencedor.setText("Jogador 2 venceu!")
+            self.desabilita(False)
+            self.p_jog_2 += 1
+        elif self.btn3 == 'Jogador2' and self.btn6 == 'Jogador2' and self.btn9 == 'Jogador2':
+            self.vencedor.setText("Jogador 2 venceu!")
+            self.p_jog_2 += 1
+        elif self.btn1 != '' and self.btn2 != '' and self.btn3 != '' and \
+            self.btn4 != '' and self.btn5 != '' and self.btn6 != '' and \
+            self.btn7 != '' and self.btn8 != '' and self.btn9 != '':
+                self.vencedor.setText("Nenhum jogador venceu.")
+        self.ponto_1.setText(f"J1: {self.p_jog_1}")
+        self.ponto_2.setText(f"J2: {self.p_jog_2}")
+
+    def desabilita(self, valor):
+        self.botao1.setEnabled(valor)
+        self.botao2.setEnabled(valor)
+        self.botao3.setEnabled(valor)
+        self.botao4.setEnabled(valor)
+        self.botao5.setEnabled(valor)
+        self.botao6.setEnabled(valor)
+        self.botao7.setEnabled(valor)
+        self.botao8.setEnabled(valor)
+        self.botao9.setEnabled(valor)

@@ -1,0 +1,98 @@
+# criar aplicação que tivesse controle de playlist de programa de TV (filmes, séries)
+# MODELO = nome que dá pare quando está criando um conceito de classes que vão rpresentar um domínio no sistema
+# reduziu a quantidade de código repetitivo. não tem mais a maioria do poto de falha
+
+#   HERANÇA
+
+class Programa:
+    def __init__(self, nome, ano):
+        # usar SÓ UM underline por convenção, para ficar mais fácil de usar o atributo em outra classe, não tem naa prendendo a variável mas os programadores vão saber que não é para ser usado o atributo
+        self.__nome = nome.title()
+        self.ano = ano
+        self.__likes = 0
+
+    @property
+    def likes(self):
+        return self.__likes
+
+    def dar_like(self):
+        self.__likes += 1
+
+    @property
+    def nome(self):
+        return self.__nome
+
+    @nome.setter
+    def nome(self, novo_nome):
+        self.__nome = novo_nome
+
+    def __str__(self):
+        return f'Nome: {self.nome} - Likes: {self.likes}'
+
+# classmethod = método da classe. você consegue acessar os atributos através de um método
+# usar MÉTODOS ESTÁTICOS para trabalhar em conjunto com a classe sem atributos presentes na classe
+
+class Filme(Programa):
+    # SUPER + ATRIBUTO = subscrevendo o método init para usar o init(super) da classe mãe para adicionar um atributo
+    def __init__(self, nome, ano, duracao):
+        # está chamando a classe mãe e o inicializador dela, como não está declarando não precisa chamar o self
+        super().__init__(nome, ano)
+        self.duracao = duracao
+
+    def __str__(self):
+        return f'Nome: {self.nome} - Duração: {self.duracao} min - Likes: {self.likes}'
+
+
+class Serie(Programa):
+    def __init__(self, nome, ano, temporadas):
+        super().__init__(nome, ano)
+        self.temporadas = temporadas
+
+    def __str__(self):
+        return f'Nome: {self.nome} - Temporadas: {self.temporadas} - Likes: {self.likes}'
+
+class Playlist(list):
+    def __init__(self, nome, lista_programas):
+        self.nome = nome
+        super().__init__(lista_programas)
+
+
+vingadores = Filme('vingadores - guerra infinita', 2018, 160)
+atlanta = Serie('atlanta', 2018, 2)
+tmep = Filme('todo mundo em pânico', 1999, 100)
+demolidor = Serie('demolidor', 2016, 2)
+
+vingadores.dar_like()
+tmep.dar_like()
+tmep.dar_like()
+tmep.dar_like()
+tmep.dar_like()
+demolidor.dar_like()
+demolidor.dar_like()
+atlanta.dar_like()
+atlanta.dar_like()
+atlanta.dar_like()
+    
+filmes_e_series = [vingadores, atlanta, demolidor, tmep]
+# filme e série são do tipo programa. As classes filho são do tipo classe mãe
+playlist_fim_de_semana = Playlist('fim de semana', filmes_e_series)
+
+print("\n")
+
+# POLIMORFISMO = são do mesmo tipo e funcionalidade.
+# for programa in filmes_e_series:
+#     detalhes = programa.duracao if hasattr(programa, 'duracao') else programa.temporadas
+#     # IF TERNÁRIO = começa com valor que quer exibir, SE tiver tal coisa, SENÃO faz tal coisa
+#     # HASATTR = para saber se existe um atributo dentro da classe
+#     print(f'{programa.nome} - {detalhes} D - {programa.likes}')
+#     print(repr(programa ))
+
+print('\n', f'Tamanho da playlist:  {len(playlist_fim_de_semana)}' ,'\n')
+
+#na OO, não é legal que o mundo de fora precise conhecer a estrutura interna da classe
+for programa in playlist_fim_de_semana:
+    print(programa)
+
+print(f'\nTá ou não tá? {demolidor in playlist_fim_de_semana}')
+
+# STR = para a representação textual do objeto 

@@ -29,6 +29,17 @@ class Programa:
     def __str__(self):
         return f'Nome: {self.nome} - Likes: {self.likes}'
 
+
+# OS MOTIVOS IDEAIS PARA USAR HERANÇA = INTERFACE (para resolver questões relativas a polimorfismo;) - REUSO(reuso do código ou para evitar duplicação
+# de código). É importante levar esses dois motivos em conta ao usar herança, usar tanto para absorver o poliformismo quanto para evitar duplicação
+
+# FORMAS DE FAZER REUSO:
+
+# Extensão = Herança - fazendo extensão de uma classe genêrica pegando todo o código da superclasse. Se algo mudar na superclasse talvez quebre o código
+# na minha subclasse
+
+# Composição =
+
 # classmethod = método da classe. você consegue acessar os atributos através de um método
 # usar MÉTODOS ESTÁTICOS para trabalhar em conjunto com a classe sem atributos presentes na classe
 
@@ -51,10 +62,25 @@ class Serie(Programa):
     def __str__(self):
         return f'Nome: {self.nome} - Temporadas: {self.temporadas} - Likes: {self.likes}'
 
-class Playlist(list):
+
+class Playlist():
     def __init__(self, nome, lista_programas):
         self.nome = nome
-        super().__init__(lista_programas)
+        self._lista_programas = lista_programas
+
+# permite que a classe seja um objeto iterável
+    # DUCK TYPING = não é necessário saber identificar uma ave para saber se é um pato ou não, basta sabermos se ela emite o mesmo som que o pato,
+    # voa ou anda como ele, do mesmo modo, não precisamos nos preocupar a tipagem do programa, basta que ele se comporte como iterável
+    def __getitem__(self, item):
+        return self._lista_programas[item]
+
+    @property
+    def listagem(self):
+        return self._lista_programas
+
+    @property
+    def tamanho(self):
+        return len(self._lista_programas)
 
 
 vingadores = Filme('vingadores - guerra infinita', 2018, 160)
@@ -72,7 +98,7 @@ demolidor.dar_like()
 atlanta.dar_like()
 atlanta.dar_like()
 atlanta.dar_like()
-    
+
 filmes_e_series = [vingadores, atlanta, demolidor, tmep]
 # filme e série são do tipo programa. As classes filho são do tipo classe mãe
 playlist_fim_de_semana = Playlist('fim de semana', filmes_e_series)
@@ -87,12 +113,21 @@ print("\n")
 #     print(f'{programa.nome} - {detalhes} D - {programa.likes}')
 #     print(repr(programa ))
 
-print('\n', f'Tamanho da playlist:  {len(playlist_fim_de_semana)}' ,'\n')
-
-#na OO, não é legal que o mundo de fora precise conhecer a estrutura interna da classe
-for programa in playlist_fim_de_semana:
-    print(programa)
+# print('\n', f'Tamanho da playlist:  {len(playlist_fim_de_semana.listagem)}', '\n')
+# print('\n', playlist_fim_de_semana, '\n')
+# # na OO, não é legal que o mundo de fora precise conhecer a estrutura interna da classe
+# for programa in playlist_fim_de_semana.listagem:
+#     print(programa)
 
 print(f'\nTá ou não tá? {demolidor in playlist_fim_de_semana}')
 
-# STR = para a representação textual do objeto 
+# print(f'Tamanho do playlist: {len(playlist_fim_de_semana)}')
+#
+# for programa in playlist_fim_de_semana:
+#     print(programa)
+
+# STR = para a representação textual do objeto
+
+
+# DÚVIDAS: 1) o que é iterável
+# 2) como usar o __getitem__()

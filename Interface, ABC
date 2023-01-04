@@ -1,0 +1,20 @@
+# INTERFACE = em JAVA, a interface garante que todo mundo que implementar aquela estrutura vai ser obrigado a implementar todos os métodos que são abstratos naquela estrutura que é a interface
+# basicamente a interface obriga a delaração de métodos abstratos
+
+# quando métodos abstratos são criados não é possível instanciar objeto da classe que os métodos pertencem
+
+# posso escolher usar métodos abstratos quando não quero que criem objetos da minha classe e quando quero definir como obrigatório alguns métodos.
+
+from abc import ABC  # abstract base class. não é aconselhável criar as próprias classes abstratas pois é um aspecto mais avançado (META PROGRAMAÇÃO), se quer criar uma classe que dependa de outra é bom olhar se existe uma base class para utilizar
+from collections.abc import MutableSequence
+from numbers import Complex
+
+
+class Playlist(MutableSequence):
+    pass
+
+# python é uma linugagem dinâmica, consegue executar diretamente o que está acontecendo, do jeito que está acontecendo.
+# estamos implementando o MutableSequence da maneira correta, então para validar se está compilando da maneira correta é preciso criar um objeto.
+
+
+filmes = Playlist()

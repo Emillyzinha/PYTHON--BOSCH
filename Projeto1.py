@@ -7,7 +7,6 @@ from PyQt5.QtWidgets import QLineEdit # para adicionar a caixa de texto
 from PyQt5.QtCore import QTimer
 
 # LABEL = Rótulo para mostrar uma informação para o usuário
-
 # Herança
 class Janela1(QMainWindow):
     def __init__(self):
@@ -43,7 +42,7 @@ class Janela1(QMainWindow):
 
         self.label_1 = QLabel(self)
         self.label_1.setText("Aperte um botão:")
-        self.label_1.move(330, 180)
+        self.label_1.move(200, 180)
         self.label_1.setStyleSheet('QLabel {font: bold; font-size: 20px; color: #000000}')
         self.label_1.resize(200, 60)
 

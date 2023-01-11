@@ -1,0 +1,300 @@
+import sys
+from PyQt5.QtWidgets import QApplication, QMainWindow, QPushButton, QLabel
+from PyQt5 import QtGui
+
+class Velha(QMainWindow):
+    def __init__(self):
+        super().__init__()
+        self.topo = 100
+        self.esquerda = 100
+        self.largura = 1000
+        self.altura = 600
+        self.lista_jogadas = []
+        self.verificacao_jogadas = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.verificacao_jogador = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.verificacao_computador = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+        self.pontos_jogador = 0
+        self.pontos_computador = 0
+
+        self.verificacao1 = False
+        self.verificacao2 = False
+        self.verificacao3 = False
+        self.verificacao4 = False
+        self.verificacao5 = False
+        self.verificacao6 = False
+        self.verificacao7 = False
+        self.verificacao8 = False
+        self.verificacao9 = False
+
+        self.fundo = QLabel(self)
+        self.fundo.move(0, 0)
+        self.fundo.resize(1000, 600)
+        self.fundo.setScaledContents(True)
+        self.fundo.setPixmap(QtGui.QPixmap('img/interface/velha.jpg'))
+
+        self.pontuacao_computador = QLabel(self)
+        self.pontuacao_computador.move(180, 45) #esquerda e topo
+        self.pontuacao_computador.resize(100, 100) #largura e altura
+        self.pontuacao_computador.setStyleSheet('QLabel {font: bold; font-size: 45px; color: #ced8f7}')
+
+        self.pontuacao_jogador = QLabel(self)
+        self.pontuacao_jogador.move(180, 150)
+        self.pontuacao_jogador.resize(100, 100)
+        self.pontuacao_jogador.setStyleSheet('QLabel {font: bold; font-size: 45px; color: #ced8f7}')
+
+        self.ninguem_venceu = QLabel(self)
+        self.ninguem_venceu.move(30, 260)
+        self.ninguem_venceu.resize(500, 100)
+        self.ninguem_venceu.setStyleSheet('QLabel {font: bold; font-size: 30px; color: #ced8f7}')
+
+        self.botao1 = QPushButton(self)
+        self.botao1.move(325, 120)
+        self.botao1.resize(100, 100)
+        self.botao1.setFlat(True)
+        self.botao1.clicked.connect(self.verifica1)
+
+        self.botao2 = QPushButton(self)
+        self.botao2.move(450, 120)
+        self.botao2.resize(100, 100)
+        self.botao2.setFlat(True)
+        self.botao2.clicked.connect(self.verifica2)
+
+        self.botao3 = QPushButton(self)
+        self.botao3.move(572, 120)
+        self.botao3.resize(100, 100)
+        self.botao3.setFlat(True)
+        self.botao3.clicked.connect(self.verifica3)
+
+        self.botao4 = QPushButton(self)
+        self.botao4.move(325, 250)
+        self.botao4.resize(100, 100)
+        self.botao4.setFlat(True)
+        self.botao4.clicked.connect(self.verifica4)
+
+        self.botao5 = QPushButton(self)
+        self.botao5.move(450, 250)
+        self.botao5.resize(100, 100)
+        self.botao5.setFlat(True)
+        self.botao5.clicked.connect(self.verifica5)
+
+        self.botao6 = QPushButton(self)
+        self.botao6.move(572, 250)
+        self.botao6.resize(100, 100)
+        self.botao6.setFlat(True)
+        self.botao6.clicked.connect(self.verifica6)
+
+        self.botao7 = QPushButton(self)
+        self.botao7.move(325, 380)
+        self.botao7.resize(100, 100)
+        self.botao7.setFlat(True)
+        self.botao7.clicked.connect(self.verifica7)
+
+        self.botao8 = QPushButton(self)
+        self.botao8.move(450, 380)
+        self.botao8.resize(100, 100)
+        self.botao8.setFlat(True)
+        self.botao8.clicked.connect(self.verifica8)
+
+        self.botao9 = QPushButton(self)
+        self.botao9.move(572, 380)
+        self.botao9.resize(100, 100)
+        self.botao9.setFlat(True)
+        self.botao9.clicked.connect(self.verifica9)
+
+        self.botao_reset = QPushButton(self)
+        self.botao_reset.move(830, 30) #esquerda e topo
+        self.botao_reset.resize(125, 60) #largura e altura
+        self.botao_reset.setFlat(True)
+        self.botao_reset.clicked.connect(self.resetar)
+
+        self.carregar_janela()
+
+    def verifica1(self):
+        self.verificacao1 = True
+        self.jogo()
+
+    def verifica2(self):
+        self.verificacao2 = True
+        self.jogo()
+
+    def verifica3(self):
+        self.verificacao3 = True
+        self.jogo()
+
+    def verifica4(self):
+        self.verificacao4 = True
+        self.jogo()
+
+    def verifica5(self):
+        self.verificacao5 = True
+        self.jogo()
+
+    def verifica6(self):
+        self.verificacao6 = True
+        self.jogo()
+
+    def verifica7(self):
+        self.verificacao7 = True
+        self.jogo()
+
+    def verifica8(self):
+        self.verificacao8 = True
+        self.jogo()
+
+    def verifica9(self):
+        self.verificacao9 = True
+        self.jogo()
+
+    def jogo(self):
+        if self.pontos_computador == 0 and self.pontos_jogador == 0:
+            self.lista_jogadas.append(1)
+        elif self.pontos_computador > self.pontos_jogador:
+            self.lista_jogadas.append(2)
+        elif self.pontos_jogador > self.pontos_computador:
+            self.lista_jogadas.append(1)
+        if self.lista_jogadas[0] == 1:
+            self.lista_jogadas.append(2)
+        elif self.lista_jogadas[0] == 2:
+            self.lista_jogadas.append(1)
+        self.lista_jogadas.reverse()
+
+        if self.verificacao1:
+            self.botao1.setEnabled(False)
+            self.verificacoes(self.botao1)
+            self.verificacao1 = False
+            self.ganhador(0)
+        elif self.verificacao2:
+            self.botao2.setEnabled(False)
+            self.verificacoes(self.botao2)
+            self.verificacao2 = False
+            self.ganhador(1)
+        elif self.verificacao3:
+            self.botao3.setEnabled(False)
+            self.verificacoes(self.botao3)
+            self.verificacao3 = False
+            self.ganhador(2)
+
+        elif self.verificacao4:
+            self.botao4.setEnabled(False)
+            self.verificacoes(self.botao4)
+            self.verificacao4 = False
+            self.ganhador(3)
+        elif self.verificacao5:
+            self.botao5.setEnabled(False)
+            self.verificacoes(self.botao5)
+            self.verificacao5 = False
+            self.ganhador(4)
+        elif self.verificacao6:
+            self.botao6.setEnabled(False)
+            self.verificacoes(self.botao6)
+            self.verificacao6 = False
+            self.ganhador(5)
+
+        elif self.verificacao7:
+            self.botao7.setEnabled(False)
+            self.verificacoes(self.botao7)
+            self.verificacao7 = False
+            self.ganhador(6)
+        elif self.verificacao8:
+            self.botao8.setEnabled(False)
+            self.verificacoes(self.botao8)
+            self.verificacao8 = False
+            self.ganhador(7)
+        elif self.verificacao9:
+            self.botao9.setEnabled(False)
+            self.verificacoes(self.botao9)
+            self.verificacao9 = False
+            self.ganhador(8)
+        else:
+            print('não deu certo')
+
+        self.ganhador1()
+
+    def verificacoes(self, botao):
+        if self.lista_jogadas[0] == 1:
+            botao.setStyleSheet('border-image: url(O.png)')
+        elif self.lista_jogadas[0] == 2:
+            botao.setStyleSheet('border-image: url(X.png)')
+
+    def ganhador(self, indice):
+        self.lista_jogadas.reverse()
+
+        if self.lista_jogadas[0] == 1:
+            self.verificacao_jogador[indice] = 1
+            self.verificacao_jogadas[indice] = 1
+
+        elif self.lista_jogadas[0] == 2:
+            self.verificacao_computador[indice] = 2
+            self.verificacao_jogadas[indice] = 2
+        self.lista_jogadas.reverse()
+
+    def ganhador1(self):
+        if self.verificacao_jogador[0] == 1 and self.verificacao_jogador[1] == 1 and self.verificacao_jogador[2] == 1 or self.verificacao_jogador[3] == 1 and self.verificacao_jogador[4] == 1 and self.verificacao_jogador[5] == 1 or \
+            self.verificacao_jogador[6] == 1 and self.verificacao_jogador[7] == 1 and self.verificacao_jogador[8] == 1 or self.verificacao_jogador[0] == 1 and self.verificacao_jogador[4] == 1 and self.verificacao_jogador[8] == 1 or \
+            self.verificacao_jogador[2] == 1 and self.verificacao_jogador[4] == 1 and self.verificacao_jogador[6] == 1 or self.verificacao_jogador[0] == 1 and self.verificacao_jogador[3] == 1 and self.verificacao_jogador[6] == 1 or \
+            self.verificacao_jogador[1] == 1 and self.verificacao_jogador[4] == 1 and self.verificacao_jogador[7] or self.verificacao_jogador[2] == 1 and self.verificacao_jogador[5] == 1 and self.verificacao_jogador[8] == 1:
+                self.pontos_jogador+=1
+                self.pontuacao_jogador.setText(str(self.pontos_jogador))
+                self.desabilitar(False)
+                self.verificacao_jogador = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+                self.verificacao_computador = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+                self.verificacao_jogadas = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+                self.lista_jogadas.clear()
+
+        elif self.verificacao_computador[0] == 2 and self.verificacao_computador[1] == 2 and self.verificacao_computador[2] == 2 or self.verificacao_computador[3] == 2 and self.verificacao_computador[4] == 2 and self.verificacao_computador[5] == 2 or \
+            self.verificacao_computador[6] == 2 and self.verificacao_computador[7] == 2 and self.verificacao_computador[8] == 2 or self.verificacao_computador[0] == 2 and self.verificacao_computador[4] == 2 and self.verificacao_computador[8] == 2 or \
+            self.verificacao_computador[2] == 2 and self.verificacao_computador[4] == 2 and self.verificacao_computador[6] == 2 or self.verificacao_computador[0] == 2 and self.verificacao_computador[3] == 2 and self.verificacao_computador[6] == 2 or \
+            self.verificacao_computador[1] == 2 and self.verificacao_computador[4] == 2 and self.verificacao_computador[7] or self.verificacao_computador[2] == 2 and self.verificacao_computador[5] == 2 and self.verificacao_computador[8] == 2:
+                self.pontos_computador+=1
+                self.pontuacao_computador.setText(str(self.pontos_computador))
+                self.desabilitar(False)
+                self.verificacao_jogador = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+                self.verificacao_computador = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+                self.verificacao_jogadas = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+                self.lista_jogadas.clear()
+
+        elif self.verificacao_jogadas[0] != 0 and self.verificacao_jogadas[1] != 0 and self.verificacao_jogadas[2] != 0 and self.verificacao_jogadas[3] != 0 and self.verificacao_jogadas[4] != 0 and \
+            self.verificacao_jogadas[5] != 0 and self.verificacao_jogadas[6] != 0 and self.verificacao_jogadas[7] != 0 and self.verificacao_jogadas[8] != 0:
+            self.ninguem_venceu.setText('Ninguém venceu!')
+            self.verificacao_jogador = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            self.verificacao_computador = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            self.verificacao_jogadas = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+
+
+    def resetar(self):
+        self.botao1.setStyleSheet('')
+        self.botao2.setStyleSheet('')
+        self.botao3.setStyleSheet('')
+        self.botao4.setStyleSheet('')
+        self.botao5.setStyleSheet('')
+        self.botao6.setStyleSheet('')
+        self.botao7.setStyleSheet('')
+        self.botao8.setStyleSheet('')
+        self.botao9.setStyleSheet('')
+
+        self.ninguem_venceu.setText('')
+
+        self.lista_jogadas.clear()
+
+        self.desabilitar(True)
+
+
+    def desabilitar(self, valor):
+        self.botao1.setEnabled(valor)
+        self.botao2.setEnabled(valor)
+        self.botao3.setEnabled(valor)
+        self.botao4.setEnabled(valor)
+        self.botao5.setEnabled(valor)
+        self.botao6.setEnabled(valor)
+        self.botao7.setEnabled(valor)
+        self.botao8.setEnabled(valor)
+        self.botao9.setEnabled(valor)
+
+    def carregar_janela(self):
+        self.setGeometry(self.esquerda, self.topo, self.largura, self.altura)
+
+
+if __name__ == '__main__':
+    aplicacao = QApplication(sys.argv)
+    v = Velha()
+    sys.exit(aplicacao.exec())

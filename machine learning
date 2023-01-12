@@ -1,0 +1,36 @@
+# aprendizado supervisionado
+#features - cracteristicas que o animal tem
+#pelo longo?
+#perna curta?
+#faz au au?
+# 1 - sim, 0 - não
+
+porco1 = [0, 1, 0]
+porco2 = [0, 1, 1]
+porco3 = [1, 1, 0]
+
+cachorro1 = [0, 1, 1]
+cachorro2 = [1, 0, 1]
+cachorro3 = [1, 1, 1]
+
+dados = [porco1, porco2, porco3, cachorro1, cachorro2, cachorro3]
+classes = [1, 1, 1, 0, 0, 0]
+#classes - ategorias que quer indicar. 1 = porco - 0 = cachorro
+
+from sklearn.svm import LinearSVC #classe onde eu posso criar um modelo
+
+model = LinearSVC()
+model.fit(dados, classes) 
+# modelo, aprende com os dados que eu tenho. como se fosse uma criança adaptando o cerebro com os dados para aprender
+# tenho que dizer o que é o que nos dados
+
+animal_misterioso = [1, 1, 1]
+model.predict([animal_misterioso]) #modelo, predite quem é o animal misterioso
+# o predict espera um array com vários itens, não só um item, como: model.predict(animal_misterioso)
+
+misterio1 = [1, 1, 1]
+misterio2 = [1, 1, 0]
+misterio3 = [0, 1, 1]
+
+teste = [misterio1, misterio2, misterio3]
+model.predict(teste)
